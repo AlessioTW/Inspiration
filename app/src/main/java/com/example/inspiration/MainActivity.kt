@@ -63,16 +63,24 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Top,
                         horizontalAlignment = Alignment.CenterHorizontally){
-                            Impostazioni()
-                            Logo()
-                            DropdownMenuCittà("Seleziona città")
-                            SpazioPubblicitarioBox()
+                        /*Impostazioni()
+                        Logo()
+                        DropdownMenuCittà("Seleziona città")
+                        SpazioPubblicitarioBox()*/
+
+                        // 2 pagina
+
+                        Logo2()
+                        SpazioPubblicitarioBox2()
                     }
                 }
             }
         }
     }
 }
+
+// prima pagina
+/*
 
 @Preview
 @Composable
@@ -179,4 +187,39 @@ fun Impostazioni() {
 
 
     }
+}*/
+
+// seconda pagina
+@Preview
+@Composable
+fun Logo2 () {
+    val image = painterResource(R.drawable.logo_nitido_senza_cambiamenti__2__removebg_preview)
+
+    Image (
+        painter = image,
+        contentDescription = null,
+        modifier = Modifier.size(100.dp),
+        alignment = Alignment.Center
+    )
 }
+
+@Composable
+fun SpazioPubblicitarioBox2() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .aspectRatio(3f / 4f)
+            .padding(vertical = 45.dp, horizontal = 45.dp)
+            .border(1.dp, Color.Black)
+            .background(Color.White),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = "Spazio pubblicitario",
+            fontSize = 18.sp,
+            color = Color.Black
+        )
+    }
+}
+
+
