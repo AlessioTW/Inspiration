@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Inspiration</string>
+
+    <string name="place1">Torre Aquila</string>
+    <string name="place2">Palazzo Albere</string>
+    <string name="place3">Palazzo Pretorio</string>
+    <string name="place4">Muse</string>
+    <string name="place5">Maria Maggiore</string>
+    <string name="place6">Fontana Nettuno</string>
+    <string name="place7">Piazza Venezia</string>
+    <string name="place8">Parco Gocciadoro</string>
+    <string name="place9">Piazza Fiera</string>
+    <string name="place10">Buonconsiglio</string>
+    <string name="place11">Piazza Duomo</string>
+
 </resources>

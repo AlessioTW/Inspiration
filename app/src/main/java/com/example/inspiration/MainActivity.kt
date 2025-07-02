@@ -1,6 +1,8 @@
 package com.example.inspiration
 
 import android.annotation.SuppressLint
+import android.graphics.Rect
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,41 +16,43 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.inspiration.data.Datasource
+import com.example.inspiration.model.Item
 import com.example.inspiration.ui.theme.InspirationTheme
 
 class MainActivity : ComponentActivity() {
@@ -72,6 +76,9 @@ class MainActivity : ComponentActivity() {
 
                         Logo2()
                         SpazioPubblicitarioBox2()
+                        MainColumn("Luoghi")
+                        NavigationRow()
+
                     }
                 }
             }
@@ -198,7 +205,10 @@ fun Logo2 () {
     Image (
         painter = image,
         contentDescription = null,
-        modifier = Modifier.size(100.dp),
+        modifier = Modifier
+            .size(170.dp)
+            .padding(top = 65.dp)
+        ,
         alignment = Alignment.Center
     )
 }
@@ -207,9 +217,9 @@ fun Logo2 () {
 fun SpazioPubblicitarioBox2() {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(3f / 4f)
-            .padding(vertical = 45.dp, horizontal = 45.dp)
+            .width(400.dp)
+            .height(90.dp)
+            .padding(vertical = 20.dp, horizontal = 45.dp)
             .border(1.dp, Color.Black)
             .background(Color.White),
         contentAlignment = Alignment.Center
@@ -222,4 +232,94 @@ fun SpazioPubblicitarioBox2() {
     }
 }
 
+@Composable
+fun MainColumn (text: String) {
+    Column (
+        modifier = Modifier
+            .border(
+                width = 1.dp,
+                color = Color.Black,
+                shape = RectangleShape
+            )
+            .width(310.dp)
+    ) {
+        Text (
+            text = text,
+            modifier = Modifier
+                .background(color = Color.LightGray)
+                .padding(20.dp)
+                .fillMaxWidth(),
+            fontWeight = FontWeight.Bold,
+            fontSize = 25.sp,
+        )
+        Surface(
+            modifier = Modifier.height(450.dp),
+        ) {
+            PlaceList(
+                placeList = Datasource().loadPlaces()
+            )
+        }
+    }
+}
 
+@Composable
+fun PlaceList (placeList: List<Item>) {
+    LazyColumn {
+        items (placeList) { singlePlace ->
+            PlaceElem(
+                place = singlePlace,
+            )
+        }
+    }
+}
+
+@Composable
+fun PlaceElem(place: Item) {
+
+    var checked by rememberSaveable { mutableStateOf(false) } // TODO SISTEMARE
+
+    Row{
+        Text (
+            text = LocalContext.current.getString(place.stringResourceId),
+            modifier = Modifier.padding(16.dp)
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        Checkbox (
+            checked = checked,
+            onCheckedChange = {checked = it}
+        )
+    }
+}
+
+@Composable
+fun NavigationRow() {
+    Row (
+        modifier = Modifier
+            .padding(top = 25.dp)
+            .width(250.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        NavigationButton(text = "Indietro", backgroundColor = Color.White, mainColor = Color.Black)
+        NavigationButton(text = "Avanti", backgroundColor = Color.Black, mainColor = Color.White)
+    }
+}
+
+@Composable
+fun NavigationButton(text: String, backgroundColor: Color, mainColor: Color) {
+    OutlinedButton (
+        onClick = { },
+        modifier = Modifier
+            .background(backgroundColor)
+            .height(40.dp)
+        ,
+        shape = RectangleShape,
+        border = BorderStroke(1.dp, mainColor),
+        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black)
+    ) {
+        Text(
+            text,
+            fontSize = 18.sp,
+            color = mainColor
+        )
+    }
+}
