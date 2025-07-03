@@ -3,10 +3,12 @@ package com.example.inspiration
 import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.graphics.drawable.Icon
+import android.graphics.pdf.models.ListItem
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,7 +28,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.ButtonDefaults
@@ -45,9 +49,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -62,7 +68,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             InspirationTheme {
-                Scaffold(modifier = Modifier.fillMaxSize().background(Color.White)) {
+                Scaffold(modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White)) {
                     Column (
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Top,
@@ -72,12 +80,27 @@ class MainActivity : ComponentActivity() {
                         DropdownMenuCittà("Seleziona città")
                         SpazioPubblicitarioBox()*/
 
-                        // 2 pagina
+                        // 2,3,4 pagina
+
 
                         Logo2()
                         SpazioPubblicitarioBox2()
-                        MainColumn("Luoghi")
-                        NavigationRow()
+                        //MainColumn("Luoghi", Datasource().loadPlaces())
+                        //MainColumn("Eventi", Datasource().loadEvents())
+                        MainColumn("Esperienze", Datasource().loadExperiences())
+                        NavigationButtonsRow()
+
+
+                        // 3 pagina
+
+                        /*
+
+                        Logo2()
+                        SpazioPubblicitarioBox2()
+                        DetailsColumn(titolo = "Orrido Ponte Alto", R.drawable.oip_if8yfsuwmzl_j4cnm63_lqhajq, "L’Orrido di Ponte Alto è una spettacolare gola scavata nei secoli dalle impetuose acque del torrente Fersina, situata a pochi chilometri dal centro di Trento. Questo canyon naturale, profondo e suggestivo, offre uno dei paesaggi più affascinanti della regione, dove natura e ingegneria storica si incontrano in un connubio unico.")
+                        NavigationButton(text = "Indietro", backgroundColor = Color.White, mainColor = Color.Black)
+
+                        */
 
                     }
                 }
@@ -196,7 +219,6 @@ fun Impostazioni() {
     }
 }*/
 
-// seconda pagina
 @Preview
 @Composable
 fun Logo2 () {
@@ -233,7 +255,31 @@ fun SpazioPubblicitarioBox2() {
 }
 
 @Composable
-fun MainColumn (text: String) {
+fun NavigationButton(text: String, backgroundColor: Color, mainColor: Color) {
+    Box(modifier = Modifier.padding(top = 20.dp)) {
+        OutlinedButton(
+            onClick = { },
+            modifier = Modifier
+                .size(width = 150.dp, height = 50.dp)
+                .background(backgroundColor),
+            shape = RectangleShape,
+            border = BorderStroke(1.dp, mainColor),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black)
+        ) {
+            Text(
+                text = text,
+                fontSize = 18.sp,
+                color = mainColor,
+            )
+        }
+    }
+
+}
+// seconda pagina
+
+
+@Composable
+fun MainColumn (text: String, listItem: List<Item>) {
     Column (
         modifier = Modifier
             .border(
@@ -256,7 +302,7 @@ fun MainColumn (text: String) {
             modifier = Modifier.height(450.dp),
         ) {
             PlaceList(
-                placeList = Datasource().loadPlaces()
+                placeList = listItem
             )
         }
     }
@@ -276,7 +322,7 @@ fun PlaceList (placeList: List<Item>) {
 @Composable
 fun PlaceElem(place: Item) {
 
-    var checked by rememberSaveable { mutableStateOf(false) } // TODO SISTEMARE
+    var checked by rememberSaveable { mutableStateOf(false) }
 
     Row{
         Text (
@@ -292,34 +338,79 @@ fun PlaceElem(place: Item) {
 }
 
 @Composable
-fun NavigationRow() {
-    Row (
+fun NavigationButtonsRow() {
+    Row(
         modifier = Modifier
-            .padding(top = 25.dp)
-            .width(250.dp),
+            .fillMaxWidth()
+            .padding(horizontal = 50.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        NavigationButton(text = "Indietro", backgroundColor = Color.White, mainColor = Color.Black)
-        NavigationButton(text = "Avanti", backgroundColor = Color.Black, mainColor = Color.White)
-    }
-}
-
-@Composable
-fun NavigationButton(text: String, backgroundColor: Color, mainColor: Color) {
-    OutlinedButton (
-        onClick = { },
-        modifier = Modifier
-            .background(backgroundColor)
-            .height(40.dp)
-        ,
-        shape = RectangleShape,
-        border = BorderStroke(1.dp, mainColor),
-        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black)
-    ) {
-        Text(
-            text,
-            fontSize = 18.sp,
-            color = mainColor
+        NavigationButton(
+            text = "Indietro",
+            backgroundColor = Color.White,
+            mainColor = Color.Black
+        )
+        NavigationButton(
+            text = "Avanti",
+            backgroundColor = Color.Black,
+            mainColor = Color.White
         )
     }
 }
+
+
+
+
+// pagina dettagli
+
+@Composable
+fun DetailsColumn (titolo: String, @DrawableRes imageId:Int, imageDescription: String) {
+    Column(
+        modifier = Modifier
+            .border(
+                width = 1.dp,
+                color = Color.Black,
+                shape = RectangleShape
+            )
+            .width(310.dp)
+            .height(570.dp),
+    ) {
+        Text(
+            text = titolo,
+            modifier = Modifier
+                .background(color = Color.LightGray)
+                .padding(20.dp)
+                .fillMaxWidth(),
+            fontWeight = FontWeight.Bold,
+            fontSize = 25.sp,
+        )
+        Surface (
+            modifier = Modifier.height(470.dp),
+        ){
+            Column {
+                Box (modifier = Modifier
+                    .height(250.dp)
+                    .width(400.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image (
+                        painter = painterResource(imageId),
+                        contentDescription = imageDescription,
+                        modifier = Modifier.padding(vertical = 15.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                }
+                Column (
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    Text(
+                        text = imageDescription,
+                        modifier = Modifier.padding(start = 15.dp, end = 15.dp)
+                    )
+                }
+            }
+        }
+    }
+}
+

@@ -13,4 +13,28 @@
     <string name="place10">Buonconsiglio</string>
     <string name="place11">Piazza Duomo</string>
 
+    <string name="events1">Concerto jazz</string>
+    <string name="events2">All you can eat sushi</string>
+    <string name="events3">Serata alle Albere</string>
+    <string name="events4">Serata Erasmus</string>
+    <string name="events5">Aperitivo Duomo</string>
+    <string name="events6">Visita Muse</string>
+    <string name="events7">Città sotterranea</string>
+    <string name="events8">Tutto a un euro</string>
+    <string name="events9">Cinema multisala</string>
+    <string name="events10">Apericena</string>
+    <string name="events11">Colazione gourmet</string>
+
+    <string name="experience1">Orrido Ponte Alto</string>
+    <string name="experience2">Gita a cavallo</string>
+    <string name="experience3">Trekking con guida</string>
+    <string name="experience4">Guida ai musei</string>
+    <string name="experience5">Rafting</string>
+    <string name="experience6">Enogastronomia</string>
+    <string name="experience7">Esperienza culinaria</string>
+    <string name="experience8">Degustazione vini</string>
+    <string name="experience9">Degustazione grappe</string>
+    <string name="experience10">Corso di cucina</string>
+    <string name="experience11">Bike tour</string>
+
 </resources>
