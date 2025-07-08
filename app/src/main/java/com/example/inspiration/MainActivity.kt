@@ -68,6 +68,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             InspirationTheme {
+                InspirationApp()
+
                 Scaffold(modifier = Modifier
                     .fillMaxSize()
                     .background(Color.White)) {
@@ -84,11 +86,14 @@ class MainActivity : ComponentActivity() {
 
 
                         Logo2()
-                        SpazioPubblicitarioBox2()
+                        //SpazioPubblicitarioBox2()
+                        Map()
+                        SelectedItems("Hai selezionato", Datasource().loadExperiences())
+                        NavigationButtonsRow(text1 = "Avvia percorso", text2 = "Condividi")
                         //MainColumn("Luoghi", Datasource().loadPlaces())
                         //MainColumn("Eventi", Datasource().loadEvents())
-                        MainColumn("Esperienze", Datasource().loadExperiences())
-                        NavigationButtonsRow()
+                        // MainColumn("Esperienze", Datasource().loadExperiences())
+                        // NavigationButtonsRow()
 
 
                         // 3 pagina
@@ -239,9 +244,10 @@ fun Logo2 () {
 fun SpazioPubblicitarioBox2() {
     Box(
         modifier = Modifier
-            .width(400.dp)
-            .height(90.dp)
-            .padding(vertical = 20.dp, horizontal = 45.dp)
+            .width(500.dp)
+            .height(85.dp)
+            .padding(top = 5.dp, bottom = 5.dp)
+            .padding(horizontal = 45.dp)
             .border(1.dp, Color.Black)
             .background(Color.White),
         contentAlignment = Alignment.Center
@@ -268,15 +274,14 @@ fun NavigationButton(text: String, backgroundColor: Color, mainColor: Color) {
         ) {
             Text(
                 text = text,
-                fontSize = 18.sp,
+                fontSize = 15.sp,
                 color = mainColor,
             )
         }
     }
-
 }
 // seconda pagina
-
+/*
 
 @Composable
 fun MainColumn (text: String, listItem: List<Item>) {
@@ -337,30 +342,6 @@ fun PlaceElem(place: Item) {
     }
 }
 
-@Composable
-fun NavigationButtonsRow() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 50.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        NavigationButton(
-            text = "Indietro",
-            backgroundColor = Color.White,
-            mainColor = Color.Black
-        )
-        NavigationButton(
-            text = "Avanti",
-            backgroundColor = Color.Black,
-            mainColor = Color.White
-        )
-    }
-}
-
-
-
-
 // pagina dettagli
 
 @Composable
@@ -414,3 +395,88 @@ fun DetailsColumn (titolo: String, @DrawableRes imageId:Int, imageDescription: S
     }
 }
 
+
+ */
+
+@Composable
+fun NavigationButtonsRow(text1: String, text2: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 50.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        NavigationButton(
+            text = text1,
+            backgroundColor = Color.White,
+            mainColor = Color.Black
+        )
+        NavigationButton(
+            text = text2,
+            backgroundColor = Color.Black,
+            mainColor = Color.White
+        )
+    }
+}
+
+@Composable
+fun Map() {
+    Image (
+        modifier = Modifier.padding(25.dp),
+        painter = painterResource(R.drawable.giro2024_piemonte_venaria_torino_mappa_completa),
+        contentDescription = "Mappa",
+        contentScale = ContentScale.Fit
+    )
+}
+
+@Composable
+fun SelectedItems (text: String, listItem: List<Item>) {
+    Column (
+        modifier = Modifier
+            .border(
+                width = 1.dp,
+                color = Color.Black,
+                shape = RectangleShape
+            )
+            .width(310.dp),
+    ) {
+        Text (
+            text = text,
+            modifier = Modifier
+                .background(color = Color.LightGray)
+                .padding(10.dp)
+                .fillMaxWidth(),
+            fontWeight = FontWeight.Bold,
+            fontSize = 15.sp,
+        )
+        Surface(
+            modifier = Modifier.height(200.dp),
+        ) {
+            PlaceList(
+                placeList = listItem
+            )
+        }
+    }
+}
+
+@Composable
+fun PlaceList (placeList: List<Item>) {
+    LazyColumn {
+        items (placeList) { singlePlace ->
+            PlaceElem(
+                place = singlePlace,
+            )
+        }
+    }
+}
+
+@Composable
+fun PlaceElem(place: Item) {
+
+     Row{
+        Text (
+            text = LocalContext.current.getString(place.stringResourceId),
+            modifier = Modifier.padding(10.dp)
+        )
+    }
+}
