@@ -44,6 +44,14 @@ class InspirationViewModel: ViewModel() {
         }
     }
 
+    fun setSelectedItem(item: Item) {
+        _uiState.update { currentState ->
+            currentState.copy (
+                selectedItem = item
+            )
+        }
+    }
+
 
 }
 
