@@ -14,7 +14,12 @@ import com.example.inspiration.data.Datasource
 import com.example.inspiration.data.InspirationUiState
 
 @Composable
-fun EventsScreen(inspirationUiState: InspirationUiState) {
+fun EventsScreen(
+    inspirationUiState: InspirationUiState,
+    onPreviousButtonClicked: () -> Unit,
+    onNextButtonClicked: () -> Unit,
+    onItemClicked: () -> Unit
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Top,
@@ -22,8 +27,16 @@ fun EventsScreen(inspirationUiState: InspirationUiState) {
     ) {
         Logo2()
         SpazioPubblicitarioBox2()
-        MainColumn("Eventi di" + inspirationUiState.città, Datasource().loadEvents())
-        NavigationButtonsRow("Indietro", "Avanti")
+        MainColumn(
+            "Eventi di " + inspirationUiState.città,
+            Datasource().loadEvents(),
+            itemClicked = {onItemClicked}
+        )
+        NavigationButtonsRow(
+            text1 = "Indietro",
+            onPreviousButtonCliked = onPreviousButtonClicked,
+            onNextButtonClicked = onNextButtonClicked,
+            text2 = "Avanti")
     }
 
 }

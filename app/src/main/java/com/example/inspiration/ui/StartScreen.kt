@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,7 +22,6 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.Icon
@@ -41,7 +41,6 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -72,14 +71,14 @@ fun StartScreen(
                 modifier = Modifier.size(250.dp),
                 alignment = Alignment.Center
             )
-            DropdownMenuCittà("Seleziona città", onButtonClicked)
+            DropdownMenuCittà(onButtonClicked)
             SpazioPubblicitarioBox()
     }
 }
 
 
 @Composable
-fun DropdownMenuCittà(message: String, onButtonClicked: (String) -> Unit) {
+fun DropdownMenuCittà(onButtonClicked: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
     var buttonWidth by remember { mutableIntStateOf(0) }
     val menuItemData = listOf("Trento")
@@ -125,10 +124,11 @@ fun DropdownMenuCittà(message: String, onButtonClicked: (String) -> Unit) {
                             .background(Color.White)
                             .fillMaxWidth()
                             .padding(start = 20.dp, top = 8.dp, bottom = 8.dp)
+                            .clickable(
+                                onClick = { onButtonClicked(option) }
+                            )
                     ) {
-                        Button (onClick = {onButtonClicked(option)}, modifier = Modifier.background(color = Color.White, shape = RectangleShape)) {
-                            Text(option, fontSize = 18.sp)
-                        }
+                        Text(option, fontSize = 18.sp)
                     }
                 }
             }

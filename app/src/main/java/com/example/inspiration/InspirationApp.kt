@@ -17,8 +17,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -35,6 +39,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -82,16 +87,51 @@ fun InspirationApp (
             )
         }
         composable (route = InspirationScreen.Places.name) {
-            PlacesScreen(inspirationUiState = uiState)
+            PlacesScreen(
+                inspirationUiState = uiState,
+                onPreviousButtonClicked = {
+                    navController.navigate(InspirationScreen.Start.name)
+                },
+                onNextButtonClicked = {
+                    navController.navigate(InspirationScreen.Events.name)
+                },
+                onItemClicked = {
+                    viewModel.setSelectedItem(it)
+                    navController.navigate(InspirationScreen.Details.name)
+                },
+            )
         }
         composable (route = InspirationScreen.Events.name) {
-            EventsScreen(inspirationUiState = uiState)
+            EventsScreen(
+                inspirationUiState = uiState,
+                onPreviousButtonClicked = {
+                    navController.navigate(InspirationScreen.Places.name)
+                },
+                onNextButtonClicked = {
+                    navController.navigate(InspirationScreen.Experiences.name)
+                },
+                onItemClicked = {
+                    navController.navigate(InspirationScreen.Details.name)
+                }
+
+            )
         }
         composable (route = InspirationScreen.Experiences.name) {
-            ExperiencesScreen(inspirationUiState = uiState)
+            ExperiencesScreen(
+                inspirationUiState = uiState,
+                onPreviousButtonClicked = {
+                    navController.navigate(InspirationScreen.Events.name)
+                },
+                onNextButtonClicked = {
+                    navController.navigate(InspirationScreen.Summary.name)
+                },
+                onItemClicked = {
+                    navController.navigate(InspirationScreen.Details.name)
+                }
+            )
         }
         composable (route = InspirationScreen.Details.name) {
-            DetailsScreen()
+            DetailsScreen(inspirationUiState = uiState)
         }
         composable(route = InspirationScreen.Summary.name) {
             SummaryScreen()
@@ -139,10 +179,15 @@ fun SpazioPubblicitarioBox2() {
 
 
 @Composable
-fun NavigationButton(text: String, backgroundColor: Color, mainColor: Color) {
+fun NavigationButton(
+    text: String,
+    backgroundColor: Color,
+    mainColor: Color,
+    onClick: () -> Unit
+) {
     Box(modifier = Modifier.padding(top = 20.dp)) {
         OutlinedButton(
-            onClick = { },
+            onClick,
             modifier = Modifier
                 .size(width = 150.dp, height = 50.dp)
                 .background(backgroundColor),
@@ -161,7 +206,11 @@ fun NavigationButton(text: String, backgroundColor: Color, mainColor: Color) {
 
 
 @Composable
-fun MainColumn (text: String, listItem: List<Item>) {
+fun MainColumn (
+    text: String,
+    listItem: List<Item>,
+    itemClicked: (Item) -> Unit
+) {
     Column (
         modifier = Modifier
             .border(
@@ -169,7 +218,7 @@ fun MainColumn (text: String, listItem: List<Item>) {
                 color = Color.Black,
                 shape = RectangleShape
             )
-            .width(310.dp)
+            .width(321.dp)
     ) {
         Text (
             text = text,
@@ -179,30 +228,40 @@ fun MainColumn (text: String, listItem: List<Item>) {
                 .fillMaxWidth(),
             fontWeight = FontWeight.Bold,
             fontSize = 25.sp,
+            textAlign = TextAlign.Center
         )
         Surface(
             modifier = Modifier.height(450.dp),
         ) {
             PlaceList(
-                placeList = listItem
+                placeList = listItem,
+                itemClicked
             )
         }
     }
 }
 
 @Composable
-fun PlaceList (placeList: List<Item>) {
+fun PlaceList (
+    placeList: List<Item>,
+    itemClicked: (Item) -> Unit
+) {
     LazyColumn {
         items (placeList) { singlePlace ->
             PlaceElemCheckBox (
                 place = singlePlace,
+                onClick = {itemClicked(singlePlace)}
             )
         }
     }
 }
 
 @Composable
-fun NavigationButtonsRow(text1: String, text2: String) {
+fun NavigationButtonsRow(
+    text1: String,
+    onPreviousButtonCliked: () -> Unit,
+    onNextButtonClicked: () -> Unit,
+    text2: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -212,28 +271,42 @@ fun NavigationButtonsRow(text1: String, text2: String) {
         NavigationButton(
             text = text1,
             backgroundColor = Color.White,
-            mainColor = Color.Black
+            mainColor = Color.Black,
+            onClick = onPreviousButtonCliked
         )
         NavigationButton(
             text = text2,
             backgroundColor = Color.Black,
-            mainColor = Color.White
+            mainColor = Color.White,
+            onClick = onNextButtonClicked
         )
     }
 }
 
 @Composable
-fun PlaceElemCheckBox (place: Item) {
-
+fun PlaceElemCheckBox (
+    place: Item,
+    onClick: () -> Unit
+) {
     var checked by rememberSaveable { mutableStateOf(false) }
 
-    Row{
+    Row {
         Text (
             text = LocalContext.current.getString(place.stringResourceId),
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp),
+            fontSize = 18.sp
         )
-
         Spacer(modifier = Modifier.weight(1f))
+        IconButton(onClick = onClick) {
+            Icon(
+                imageVector = Icons.Outlined.Info,
+                contentDescription = "info",
+                tint = Color.Black,
+                modifier = Modifier
+                    .size(24.dp)
+                    .background(Color.White)
+            )
+        }
         Checkbox (
             checked = checked,
             onCheckedChange = {checked = it}

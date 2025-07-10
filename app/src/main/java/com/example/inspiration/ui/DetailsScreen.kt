@@ -23,16 +23,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.inspiration.Logo2
 import com.example.inspiration.NavigationButton
 import com.example.inspiration.SpazioPubblicitarioBox2
+import com.example.inspiration.data.InspirationUiState
 
 @Composable
-fun DetailsScreen() {
+fun DetailsScreen(
+    inspirationUiState: InspirationUiState,
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Top,
@@ -41,10 +46,11 @@ fun DetailsScreen() {
         Logo2()
         SpazioPubblicitarioBox2()
         DetailsColumn(
-            titolo = "Orrido Ponte Alto",
-            R.drawable.orrido,
-            "L’Orrido di Ponte Alto è una spettacolare gola scavata nei secoli dalle impetuose acque del torrente Fersina, situata a pochi chilometri dal centro di Trento. Questo canyon naturale, profondo e suggestivo, offre uno dei paesaggi più affascinanti della regione, dove natura e ingegneria storica si incontrano in un connubio unico.")
-        NavigationButton(text = "Indietro", backgroundColor = Color.White, mainColor = Color.Black)
+            titolo = LocalContext.current.getString(inspirationUiState.selectedItem!!.stringResourceId),
+            imageId = inspirationUiState.selectedItem.imageId,
+            imageDescription = inspirationUiState.selectedItem.description,
+            )
+        //NavigationButton(text = "Indietro", backgroundColor = Color.White, mainColor = Color.Black)
 
     }
 }
@@ -59,7 +65,7 @@ fun DetailsColumn (titolo: String, @DrawableRes imageId:Int, imageDescription: S
                 color = Color.Black,
                 shape = RectangleShape
             )
-            .width(310.dp)
+            .width(321.dp)
             .height(570.dp),
     ) {
         Text(
@@ -70,6 +76,7 @@ fun DetailsColumn (titolo: String, @DrawableRes imageId:Int, imageDescription: S
                 .fillMaxWidth(),
             fontWeight = FontWeight.Bold,
             fontSize = 25.sp,
+            textAlign = TextAlign.Center
         )
         Surface (
             modifier = Modifier.height(470.dp),
@@ -93,6 +100,7 @@ fun DetailsColumn (titolo: String, @DrawableRes imageId:Int, imageDescription: S
                 ) {
                     Text(
                         text = imageDescription,
+                        fontSize = 18.sp,
                         modifier = Modifier.padding(start = 15.dp, end = 15.dp)
                     )
                 }

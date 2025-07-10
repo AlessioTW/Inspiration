@@ -39,9 +39,14 @@ fun SummaryScreen() {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally) {
         Logo2()
-        Map()
         SelectedItems("Hai selezionato", Datasource().loadExperiences())
-        NavigationButtonsRow(text1 = "Avvia percorso", text2 = "Condividi")
+        Map()
+        NavigationButtonsRow(
+            text1 = "Avvia percorso",
+            text2 = "Condividi",
+            onNextButtonClicked = {},
+            onPreviousButtonCliked = {},
+        )
     }
 }
 
@@ -73,10 +78,12 @@ fun SelectedItems (text: String, listItem: List<Item>) {
                 .padding(10.dp)
                 .fillMaxWidth(),
             fontWeight = FontWeight.Bold,
-            fontSize = 15.sp,
+            fontSize = 18.sp,
         )
         Surface(
-            modifier = Modifier.height(200.dp),
+            modifier = Modifier
+                .height(200.dp)
+                .fillMaxWidth(),
         ) {
             PlaceListDetails(
                 placeList = listItem
@@ -87,7 +94,7 @@ fun SelectedItems (text: String, listItem: List<Item>) {
 
 @Composable
 fun PlaceListDetails (placeList: List<Item>) {
-    LazyColumn {
+    LazyColumn{
         items (placeList) { singlePlace ->
             PlaceElem (
                 place = singlePlace,

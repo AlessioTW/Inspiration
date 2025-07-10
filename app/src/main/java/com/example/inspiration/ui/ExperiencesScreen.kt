@@ -12,10 +12,16 @@ import com.example.inspiration.NavigationButtonsRow
 import com.example.inspiration.SpazioPubblicitarioBox2
 import com.example.inspiration.data.Datasource
 import com.example.inspiration.data.InspirationUiState
+import com.example.inspiration.model.Item
 
 
 @Composable
-fun ExperiencesScreen(inspirationUiState: InspirationUiState) {
+fun ExperiencesScreen(
+    inspirationUiState: InspirationUiState,
+    onPreviousButtonClicked: () -> Unit,
+    onNextButtonClicked: () -> Unit,
+    onItemClicked: (Item) -> Unit
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Top,
@@ -23,8 +29,16 @@ fun ExperiencesScreen(inspirationUiState: InspirationUiState) {
     ) {
         Logo2()
         SpazioPubblicitarioBox2()
-        MainColumn("Esperienze di" + inspirationUiState.città, Datasource().loadExperiences())
-        NavigationButtonsRow("Indietro", "Termina")
+        MainColumn(
+            "Esperienze di " + inspirationUiState.città,
+            Datasource().loadExperiences(),
+            onItemClicked
+        )
+        NavigationButtonsRow(
+            text1 = "Indietro",
+            onPreviousButtonCliked = onPreviousButtonClicked,
+            onNextButtonClicked = onNextButtonClicked,
+            text2 = "Avanti")
     }
 }
 
