@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.inspiration.InspirationScreen
 import com.example.inspiration.Logo2
 import com.example.inspiration.NavigationButton
 import com.example.inspiration.SpazioPubblicitarioBox2
@@ -37,6 +38,7 @@ import com.example.inspiration.data.InspirationUiState
 @Composable
 fun DetailsScreen(
     inspirationUiState: InspirationUiState,
+    onPreviousButtonClicked: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -50,7 +52,12 @@ fun DetailsScreen(
             imageId = inspirationUiState.selectedItem.imageId,
             imageDescription = inspirationUiState.selectedItem.description,
             )
-        //NavigationButton(text = "Indietro", backgroundColor = Color.White, mainColor = Color.Black)
+        NavigationButton(
+            text = "Indietro",
+            backgroundColor = Color.White,
+            mainColor = Color.Black,
+            onClick = onPreviousButtonClicked
+        )
 
     }
 }

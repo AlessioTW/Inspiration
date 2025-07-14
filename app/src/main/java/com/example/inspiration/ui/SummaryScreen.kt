@@ -30,22 +30,33 @@ import com.example.inspiration.Logo2
 import com.example.inspiration.NavigationButtonsRow
 import com.example.inspiration.R
 import com.example.inspiration.data.Datasource
+import com.example.inspiration.data.InspirationUiState
 import com.example.inspiration.model.Item
 
 @Composable
-fun SummaryScreen() {
+fun SummaryScreen(
+    inspirationUiState: InspirationUiState
+) {
     Column (
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally) {
         Logo2()
-        SelectedItems("Hai selezionato", Datasource().loadExperiences())
+        SelectedItems(
+            text = "Hai selezionato " +
+                    (inspirationUiState.placeList.size +
+                inspirationUiState.eventList.size +
+                inspirationUiState.experienceList.size) + " Ispirazioni:",
+            listItem = inspirationUiState.placeList +
+                    inspirationUiState.eventList +
+                    inspirationUiState.experienceList
+        )
         Map()
         NavigationButtonsRow(
             text1 = "Avvia percorso",
             text2 = "Condividi",
             onNextButtonClicked = {},
-            onPreviousButtonCliked = {},
+            onPreviousButtonClicked = {},
         )
     }
 }
@@ -104,9 +115,8 @@ fun PlaceListDetails (placeList: List<Item>) {
 }
 
 @Composable
-fun PlaceElem(place: Item) {
-
-    Row{
+fun PlaceElem (place: Item) {
+    Row {
         Text (
             text = LocalContext.current.getString(place.stringResourceId),
             modifier = Modifier.padding(10.dp)

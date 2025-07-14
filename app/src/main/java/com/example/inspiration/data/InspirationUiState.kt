@@ -7,5 +7,5 @@ data class InspirationUiState(
     val placeList: List<Item> = listOf(),   // lista contenente tutti i luoghi flaggati
     val eventList: List<Item> = listOf(),
     val experienceList: List<Item> = listOf(),
-    val selectedItem: Item? = null
+    val selectedItem: Item? = null,
 )

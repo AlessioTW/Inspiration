@@ -20,27 +20,35 @@ class InspirationViewModel: ViewModel() {
         }
     }
 
-    fun setPlace(listPlace: List<Item>) {
+    fun toggleItem (item: Item, category: String) {
         _uiState.update { currentState ->
-            currentState.copy (
-                placeList = listPlace
-            )
-        }
-    }
-
-    fun setExperience(listExperience: List<Item>) {
-        _uiState.update { currentState ->
-            currentState.copy (
-                experienceList = listExperience
-            )
-        }
-    }
-
-    fun setEvent(listEvent: List<Item>) {
-        _uiState.update { currentState ->
-            currentState.copy (
-                eventList = listEvent
-            )
+            when (category) {
+                "Luoghi" -> {
+                    val updatedList = if (currentState.placeList.contains(item)) {
+                        currentState.placeList - item
+                    } else {
+                        currentState.placeList + item
+                    }
+                    currentState.copy(placeList = updatedList)
+                }
+                "Eventi" -> {
+                    val updatedList = if (currentState.eventList.contains(item)) {
+                        currentState.eventList - item
+                    } else {
+                        currentState.eventList + item
+                    }
+                    currentState.copy(eventList = updatedList)
+                }
+                "Esperienze" -> {
+                    val updatedList = if (currentState.experienceList.contains(item)) {
+                        currentState.experienceList - item
+                    } else {
+                        currentState.experienceList + item
+                    }
+                    currentState.copy(experienceList = updatedList)
+                }
+                else -> currentState
+            }
         }
     }
 

@@ -20,7 +20,8 @@ fun ExperiencesScreen(
     inspirationUiState: InspirationUiState,
     onPreviousButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
-    onItemClicked: (Item) -> Unit
+    infoClicked: (Item) -> Unit,
+    onItemCheckedChange: (Item, String) -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -30,15 +31,18 @@ fun ExperiencesScreen(
         Logo2()
         SpazioPubblicitarioBox2()
         MainColumn(
-            "Esperienze di " + inspirationUiState.città,
-            Datasource().loadExperiences(),
-            onItemClicked
+            città = inspirationUiState.città,
+            listItem = Datasource().loadExperiences(),
+            infoClicked = infoClicked,
+            selectedItems = inspirationUiState.experienceList,
+            onItemCheckedChange,
+            category = "Esperienze"
         )
         NavigationButtonsRow(
             text1 = "Indietro",
-            onPreviousButtonCliked = onPreviousButtonClicked,
+            onPreviousButtonClicked = onPreviousButtonClicked,
             onNextButtonClicked = onNextButtonClicked,
-            text2 = "Avanti")
+            text2 = "Termina")
     }
 }
 

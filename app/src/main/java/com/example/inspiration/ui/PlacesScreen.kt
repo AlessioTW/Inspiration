@@ -20,7 +20,8 @@ fun PlacesScreen(
     inspirationUiState: InspirationUiState,
     onPreviousButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
-    onItemClicked: (Item) -> Unit
+    infoClicked: (Item) -> Unit,
+    onItemCheckedChange: (Item, String) -> Unit
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -30,13 +31,16 @@ fun PlacesScreen(
             Logo2()
             SpazioPubblicitarioBox2()
             MainColumn(
-                text = "Luoghi di " + inspirationUiState.città,
+                città = inspirationUiState.città,
                 listItem = Datasource().loadPlaces(),
-                itemClicked = onItemClicked
+                infoClicked = infoClicked,
+                selectedItems = inspirationUiState.placeList,
+                onItemCheckedChange,
+                category = "Luoghi"
             )
             NavigationButtonsRow(
                 text1 = "Indietro",
-                onPreviousButtonCliked = onPreviousButtonClicked,
+                onPreviousButtonClicked = onPreviousButtonClicked,
                 onNextButtonClicked = onNextButtonClicked,
                 text2 = "Avanti")
     }

@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
@@ -29,9 +31,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,7 +38,6 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -95,10 +93,13 @@ fun InspirationApp (
                 onNextButtonClicked = {
                     navController.navigate(InspirationScreen.Events.name)
                 },
-                onItemClicked = {
+                infoClicked = {
                     viewModel.setSelectedItem(it)
                     navController.navigate(InspirationScreen.Details.name)
                 },
+                onItemCheckedChange = { item, _ ->
+                    viewModel.toggleItem(item, "Luoghi")
+                }
             )
         }
         composable (route = InspirationScreen.Events.name) {
@@ -110,10 +111,13 @@ fun InspirationApp (
                 onNextButtonClicked = {
                     navController.navigate(InspirationScreen.Experiences.name)
                 },
-                onItemClicked = {
+                infoClicked = {
+                    viewModel.setSelectedItem(it)
                     navController.navigate(InspirationScreen.Details.name)
+                },
+                onItemCheckedChange = { item, _ ->
+                    viewModel.toggleItem(item, "Eventi")
                 }
-
             )
         }
         composable (route = InspirationScreen.Experiences.name) {
@@ -125,16 +129,25 @@ fun InspirationApp (
                 onNextButtonClicked = {
                     navController.navigate(InspirationScreen.Summary.name)
                 },
-                onItemClicked = {
+                infoClicked = {
+                    viewModel.setSelectedItem(it)
                     navController.navigate(InspirationScreen.Details.name)
+                },
+                onItemCheckedChange = { item, _ ->
+                    viewModel.toggleItem(item, "Esperienze")
                 }
             )
         }
         composable (route = InspirationScreen.Details.name) {
-            DetailsScreen(inspirationUiState = uiState)
+            DetailsScreen(
+                inspirationUiState = uiState,
+                onPreviousButtonClicked = {
+                    navController.popBackStack()
+                },
+            )
         }
         composable(route = InspirationScreen.Summary.name) {
-            SummaryScreen()
+            SummaryScreen(inspirationUiState = uiState)
         }
     }
 }
@@ -207,9 +220,12 @@ fun NavigationButton(
 
 @Composable
 fun MainColumn (
-    text: String,
+    città: String,
     listItem: List<Item>,
-    itemClicked: (Item) -> Unit
+    infoClicked: (Item) -> Unit,
+    selectedItems: List<Item>,
+    onItemCheckedChange: (Item, String) -> Unit,
+    category: String
 ) {
     Column (
         modifier = Modifier
@@ -220,22 +236,54 @@ fun MainColumn (
             )
             .width(321.dp)
     ) {
-        Text (
-            text = text,
-            modifier = Modifier
-                .background(color = Color.LightGray)
-                .padding(20.dp)
-                .fillMaxWidth(),
-            fontWeight = FontWeight.Bold,
-            fontSize = 25.sp,
-            textAlign = TextAlign.Center
-        )
+        Row (modifier = Modifier
+            .fillMaxWidth()
+            .background(color = Color.LightGray)
+            .padding(vertical = 10.dp, horizontal = 16.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text (
+                text = città,
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp
+            )
+        }
+        Row (modifier = Modifier
+            .fillMaxWidth()
+            .background(color = Color.LightGray),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text (
+                text = category,
+                modifier = Modifier
+                    .padding(vertical = 10.dp, horizontal = 16.dp),
+                fontWeight = FontWeight.Bold,
+                fontSize = 25.sp
+            )
+            Row {
+                Icon (
+                    imageVector = Icons.Outlined.CheckCircle,
+                    contentDescription = "null",
+                    modifier = Modifier
+                        .padding(vertical = 15.dp, horizontal =10.dp))
+                Text (
+                    text = selectedItems.size.toString(),
+                    modifier = Modifier
+                        .padding(vertical = 10.dp, horizontal = 18.dp),
+                    fontSize = 25.sp
+                )
+            }
+        }
+
         Surface(
             modifier = Modifier.height(450.dp),
         ) {
             PlaceList(
                 placeList = listItem,
-                itemClicked
+                selectedItems,
+                onItemToggle = onItemCheckedChange,
+                onItemInfoClicked = infoClicked,
+                category
             )
         }
     }
@@ -244,13 +292,18 @@ fun MainColumn (
 @Composable
 fun PlaceList (
     placeList: List<Item>,
-    itemClicked: (Item) -> Unit
+    selectedItems: List<Item>,
+    onItemToggle: (Item, String) -> Unit,
+    onItemInfoClicked: (Item) -> Unit,
+    category: String
 ) {
     LazyColumn {
         items (placeList) { singlePlace ->
             PlaceElemCheckBox (
                 place = singlePlace,
-                onClick = {itemClicked(singlePlace)}
+                isChecked = selectedItems.contains(singlePlace),
+                onCheckedChange = { onItemToggle(singlePlace, category) },
+                onClickInfo = { onItemInfoClicked(singlePlace) }
             )
         }
     }
@@ -259,7 +312,7 @@ fun PlaceList (
 @Composable
 fun NavigationButtonsRow(
     text1: String,
-    onPreviousButtonCliked: () -> Unit,
+    onPreviousButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
     text2: String) {
     Row(
@@ -272,7 +325,7 @@ fun NavigationButtonsRow(
             text = text1,
             backgroundColor = Color.White,
             mainColor = Color.Black,
-            onClick = onPreviousButtonCliked
+            onClick = onPreviousButtonClicked
         )
         NavigationButton(
             text = text2,
@@ -286,10 +339,10 @@ fun NavigationButtonsRow(
 @Composable
 fun PlaceElemCheckBox (
     place: Item,
-    onClick: () -> Unit
+    isChecked: Boolean,
+    onCheckedChange: () -> Unit,
+    onClickInfo: () -> Unit
 ) {
-    var checked by rememberSaveable { mutableStateOf(false) }
-
     Row {
         Text (
             text = LocalContext.current.getString(place.stringResourceId),
@@ -297,7 +350,7 @@ fun PlaceElemCheckBox (
             fontSize = 18.sp
         )
         Spacer(modifier = Modifier.weight(1f))
-        IconButton(onClick = onClick) {
+        IconButton(onClick = onClickInfo) {
             Icon(
                 imageVector = Icons.Outlined.Info,
                 contentDescription = "info",
@@ -308,8 +361,8 @@ fun PlaceElemCheckBox (
             )
         }
         Checkbox (
-            checked = checked,
-            onCheckedChange = {checked = it}
+            checked = isChecked,
+            onCheckedChange = {onCheckedChange()}
         )
     }
 }

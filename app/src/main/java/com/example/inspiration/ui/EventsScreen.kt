@@ -12,13 +12,15 @@ import com.example.inspiration.NavigationButtonsRow
 import com.example.inspiration.SpazioPubblicitarioBox2
 import com.example.inspiration.data.Datasource
 import com.example.inspiration.data.InspirationUiState
+import com.example.inspiration.model.Item
 
 @Composable
 fun EventsScreen(
     inspirationUiState: InspirationUiState,
     onPreviousButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
-    onItemClicked: () -> Unit
+    infoClicked: (Item) -> Unit,
+    onItemCheckedChange: (Item, String) -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -28,13 +30,17 @@ fun EventsScreen(
         Logo2()
         SpazioPubblicitarioBox2()
         MainColumn(
-            "Eventi di " + inspirationUiState.città,
-            Datasource().loadEvents(),
-            itemClicked = {onItemClicked}
+            città = inspirationUiState.città,
+            listItem = Datasource().loadEvents(),
+            infoClicked = infoClicked,
+            selectedItems = inspirationUiState.eventList,
+            onItemCheckedChange,
+            category = "Eventi"
+
         )
         NavigationButtonsRow(
             text1 = "Indietro",
-            onPreviousButtonCliked = onPreviousButtonClicked,
+            onPreviousButtonClicked = onPreviousButtonClicked,
             onNextButtonClicked = onNextButtonClicked,
             text2 = "Avanti")
     }
