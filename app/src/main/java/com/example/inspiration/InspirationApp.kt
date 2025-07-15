@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.ButtonDefaults
@@ -278,8 +277,8 @@ fun MainColumn (
         Surface(
             modifier = Modifier.height(450.dp),
         ) {
-            PlaceList(
-                placeList = listItem,
+            ListItems(
+                listItems = listItem,
                 selectedItems,
                 onItemToggle = onItemCheckedChange,
                 onItemInfoClicked = infoClicked,
@@ -290,20 +289,20 @@ fun MainColumn (
 }
 
 @Composable
-fun PlaceList (
-    placeList: List<Item>,
+fun ListItems (
+    listItems: List<Item>,
     selectedItems: List<Item>,
     onItemToggle: (Item, String) -> Unit,
     onItemInfoClicked: (Item) -> Unit,
     category: String
 ) {
     LazyColumn {
-        items (placeList) { singlePlace ->
+        items (listItems) { singleItem ->
             PlaceElemCheckBox (
-                place = singlePlace,
-                isChecked = selectedItems.contains(singlePlace),
-                onCheckedChange = { onItemToggle(singlePlace, category) },
-                onClickInfo = { onItemInfoClicked(singlePlace) }
+                item = singleItem,
+                isChecked = selectedItems.contains(singleItem),
+                onCheckedChange = { onItemToggle(singleItem, category) },
+                onClickInfo = { onItemInfoClicked(singleItem) }
             )
         }
     }
@@ -338,18 +337,25 @@ fun NavigationButtonsRow(
 
 @Composable
 fun PlaceElemCheckBox (
-    place: Item,
+    item: Item,
     isChecked: Boolean,
     onCheckedChange: () -> Unit,
     onClickInfo: () -> Unit
 ) {
     Row {
         Text (
-            text = LocalContext.current.getString(place.stringResourceId),
+            text = LocalContext.current.getString(item.titolo),
             modifier = Modifier.padding(16.dp),
-            fontSize = 18.sp
+            fontSize = 17.sp
         )
         Spacer(modifier = Modifier.weight(1f))
+        if (item.vip) {
+            Text(
+                text = "⭐️",
+                fontSize = 22.sp,
+                modifier = Modifier.padding(top = 12.dp)
+            )
+        }
         IconButton(onClick = onClickInfo) {
             Icon(
                 imageVector = Icons.Outlined.Info,

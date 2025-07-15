@@ -1,8 +1,6 @@
 package com.example.inspiration.ui
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
-import com.example.inspiration.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -29,11 +27,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.inspiration.InspirationScreen
 import com.example.inspiration.Logo2
 import com.example.inspiration.NavigationButton
 import com.example.inspiration.SpazioPubblicitarioBox2
 import com.example.inspiration.data.InspirationUiState
+import com.example.inspiration.model.Item
 
 @Composable
 fun DetailsScreen(
@@ -47,11 +45,7 @@ fun DetailsScreen(
     ) {
         Logo2()
         SpazioPubblicitarioBox2()
-        DetailsColumn(
-            titolo = LocalContext.current.getString(inspirationUiState.selectedItem!!.stringResourceId),
-            imageId = inspirationUiState.selectedItem.imageId,
-            imageDescription = inspirationUiState.selectedItem.description,
-            )
+        DetailsColumn(inspirationUiState.selectedItem)
         NavigationButton(
             text = "Indietro",
             backgroundColor = Color.White,
@@ -64,7 +58,7 @@ fun DetailsScreen(
 
 
 @Composable
-fun DetailsColumn (titolo: String, @DrawableRes imageId:Int, imageDescription: String) {
+fun DetailsColumn (item: Item?) {
     Column(
         modifier = Modifier
             .border(
@@ -76,7 +70,7 @@ fun DetailsColumn (titolo: String, @DrawableRes imageId:Int, imageDescription: S
             .height(570.dp),
     ) {
         Text(
-            text = titolo,
+            text = LocalContext.current.getString(item!!.titolo),
             modifier = Modifier
                 .background(color = Color.LightGray)
                 .padding(20.dp)
@@ -85,32 +79,29 @@ fun DetailsColumn (titolo: String, @DrawableRes imageId:Int, imageDescription: S
             fontSize = 25.sp,
             textAlign = TextAlign.Center
         )
-        Surface (
-            modifier = Modifier.height(470.dp),
-        ){
-            Column {
-                Box (modifier = Modifier
-                    .height(250.dp)
-                    .width(400.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Image (
-                        painter = painterResource(imageId),
-                        contentDescription = imageDescription,
-                        modifier = Modifier.padding(vertical = 15.dp),
-                        contentScale = ContentScale.Fit
-                    )
-                }
-                Column (
+        Column {
+            Box (modifier = Modifier
+                .height(250.dp)
+                .width(400.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Image (
+                    painter = painterResource(item.imageId),
+                    contentDescription = LocalContext.current.getString(item.description),
                     modifier = Modifier
-                        .verticalScroll(rememberScrollState())
-                ) {
-                    Text(
-                        text = imageDescription,
-                        fontSize = 18.sp,
-                        modifier = Modifier.padding(start = 15.dp, end = 15.dp)
-                    )
-                }
+                        .padding(vertical = 15.dp),
+                    contentScale = ContentScale.Crop
+                )
+            }
+            Column (
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+            ) {
+                Text(
+                    text = LocalContext.current.getString(item.description),
+                    fontSize = 18.sp,
+                    modifier = Modifier.padding(start = 15.dp, end = 15.dp)
+                )
             }
         }
     }

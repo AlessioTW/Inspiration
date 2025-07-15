@@ -53,22 +53,13 @@ fun StartScreen(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally) {
-            Row (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 30.dp, end = 10.dp),
-                horizontalArrangement = Arrangement.End,
-            ) {
-                IconButton (onClick = {
-                    println("Ciao")
-                }) {
-                    Icon(imageVector = Icons.Default.Settings, contentDescription = "Impostazioni")
-                }
-            }
             Image (
                 painter = painterResource(R.drawable.logo),
                 contentDescription = null,
-                modifier = Modifier.size(250.dp),
+                modifier = Modifier
+                    .size(250.dp)
+                    .padding(top = 90.dp)
+                ,
                 alignment = Alignment.Center
             )
             DropdownMenuCittà(onButtonClicked)

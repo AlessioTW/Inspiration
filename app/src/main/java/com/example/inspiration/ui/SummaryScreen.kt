@@ -16,6 +16,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,9 +33,13 @@ import androidx.compose.ui.unit.sp
 import com.example.inspiration.Logo2
 import com.example.inspiration.NavigationButtonsRow
 import com.example.inspiration.R
-import com.example.inspiration.data.Datasource
 import com.example.inspiration.data.InspirationUiState
 import com.example.inspiration.model.Item
+import org.burnoutcrew.reorderable.*
+import android.content.Intent
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun SummaryScreen(
@@ -52,15 +60,40 @@ fun SummaryScreen(
                     inspirationUiState.experienceList
         )
         Map()
-        NavigationButtonsRow(
+        ShareButton("ciao")
+
+        /*NavigationButtonsRow(
             text1 = "Avvia percorso",
             text2 = "Condividi",
-            onNextButtonClicked = {},
+            onNextButtonClicked = {
+                val sendIntent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, "booooh")
+                    type = "text/plain"
+                }
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                LocalContext.current.startActivity(shareIntent)
+            },
             onPreviousButtonClicked = {},
-        )
+        )*/
     }
 }
+@Composable
+fun ShareButton(textToShare: String) {
+    val context = LocalContext.current
 
+    Button(onClick = {
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, textToShare)
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        context.startActivity(shareIntent)
+    }) {
+        Text(text = "Condividi")
+    }
+}
 @Composable
 fun Map() {
     Image (
@@ -96,29 +129,49 @@ fun SelectedItems (text: String, listItem: List<Item>) {
                 .height(200.dp)
                 .fillMaxWidth(),
         ) {
-            PlaceListDetails(
-                placeList = listItem
+            ListDetails(
+                list = listItem
             )
         }
     }
 }
 
 @Composable
-fun PlaceListDetails (placeList: List<Item>) {
-    LazyColumn{
-        items (placeList) { singlePlace ->
-            PlaceElem (
-                place = singlePlace,
-            )
+fun ListDetails (list: List<Item>) {
+    var items by remember { mutableStateOf(list.toMutableList()) }
+    val reorderState = rememberReorderableLazyListState(onMove = { from, to ->
+        items = items.toMutableList().apply {
+            add(to.index, removeAt(from.index))
+        }
+    })
+    LazyColumn(
+        state = reorderState.listState,
+        modifier = Modifier
+            .reorderable(reorderState)
+            .detectReorderAfterLongPress(reorderState)
+    ) {
+        items(items, key = { it.titolo }) { singleElem ->
+            ReorderableItem(reorderState, key = singleElem.titolo) { isDragging ->
+                val bgColor = if (isDragging) Color(0xFFE0E0E0) else Color.Transparent
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(bgColor)
+                ) {
+                    Elem (
+                        elem = singleElem,
+                    )
+                }
+            }
         }
     }
 }
 
 @Composable
-fun PlaceElem (place: Item) {
+fun Elem (elem: Item) {
     Row {
         Text (
-            text = LocalContext.current.getString(place.stringResourceId),
+            text = LocalContext.current.getString(elem.titolo),
             modifier = Modifier.padding(10.dp)
         )
     }
