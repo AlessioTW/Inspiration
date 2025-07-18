@@ -146,11 +146,14 @@ fun InspirationApp (
             )
         }
         composable(route = InspirationScreen.Summary.name) {
-            SummaryScreen(inspirationUiState = uiState)
+            SummaryScreen(
+                inspirationUiState = uiState,
+                onPreviousButtonClicked = {navController.popBackStack()},
+                onNextButtonClicked = {viewModel.resetOrder()
+                    navController.popBackStack(InspirationScreen.Start.name, inclusive = false)})
         }
     }
 }
-
 
 @Preview
 @Composable

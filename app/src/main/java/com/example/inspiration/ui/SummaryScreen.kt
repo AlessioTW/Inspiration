@@ -43,7 +43,9 @@ import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun SummaryScreen(
-    inspirationUiState: InspirationUiState
+    inspirationUiState: InspirationUiState,
+    onPreviousButtonClicked: () -> Unit,
+    onNextButtonClicked: () -> Unit,
 ) {
     Column (
         modifier = Modifier.fillMaxSize(),
@@ -60,22 +62,29 @@ fun SummaryScreen(
                     inspirationUiState.experienceList
         )
         Map()
-        ShareButton("ciao")
+        //ShareButton("ciao")
 
-        /*NavigationButtonsRow(
+        NavigationButtonsRow(
             text1 = "Avvia percorso",
             text2 = "Condividi",
-            onNextButtonClicked = {
+            onNextButtonClicked = {/*
                 val sendIntent = Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, "booooh")
                     type = "text/plain"
                 }
                 val shareIntent = Intent.createChooser(sendIntent, null)
-                LocalContext.current.startActivity(shareIntent)
+                LocalContext.current.startActivity(shareIntent)*/
             },
             onPreviousButtonClicked = {},
-        )*/
+        )
+
+        NavigationButtonsRow(
+            text1 = "Indietro",
+            text2 = "Nuova ricerca",
+            onPreviousButtonClicked = onPreviousButtonClicked,
+            onNextButtonClicked = onNextButtonClicked,
+        )
     }
 }
 @Composable
@@ -97,7 +106,7 @@ fun ShareButton(textToShare: String) {
 @Composable
 fun Map() {
     Image (
-        modifier = Modifier.padding(25.dp),
+        modifier = Modifier.padding(top = 10.dp),
         painter = painterResource(R.drawable.mappa),
         contentDescription = "Mappa",
         contentScale = ContentScale.Fit

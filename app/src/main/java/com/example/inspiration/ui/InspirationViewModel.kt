@@ -60,6 +60,9 @@ class InspirationViewModel: ViewModel() {
         }
     }
 
+    fun resetOrder() {
+        _uiState.value = InspirationUiState()
+    }
 
 }
 

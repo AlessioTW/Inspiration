@@ -6,6 +6,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -56,7 +58,6 @@ fun DetailsScreen(
     }
 }
 
-
 @Composable
 fun DetailsColumn (item: Item?) {
     Column(
@@ -69,16 +70,25 @@ fun DetailsColumn (item: Item?) {
             .width(321.dp)
             .height(570.dp),
     ) {
-        Text(
-            text = LocalContext.current.getString(item!!.titolo),
-            modifier = Modifier
-                .background(color = Color.LightGray)
-                .padding(20.dp)
-                .fillMaxWidth(),
-            fontWeight = FontWeight.Bold,
-            fontSize = 25.sp,
-            textAlign = TextAlign.Center
-        )
+        Row (modifier = Modifier
+            .background(color = Color.LightGray)
+            .padding(20.dp)
+            .fillMaxWidth()) {
+            Text(
+                text = LocalContext.current.getString(item!!.titolo),
+                fontWeight = FontWeight.Bold,
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+            )
+            if (item.vip) {
+                Text(
+                    text = "⭐️",
+                    fontSize = 22.sp,
+                    modifier = Modifier.padding(start = 10.dp)
+                )
+            }
+        }
+
         Column {
             Box (modifier = Modifier
                 .height(250.dp)
@@ -86,8 +96,8 @@ fun DetailsColumn (item: Item?) {
                 contentAlignment = Alignment.Center
             ) {
                 Image (
-                    painter = painterResource(item.imageId),
-                    contentDescription = LocalContext.current.getString(item.description),
+                    painter = painterResource(item!!.imageId),
+                    contentDescription = LocalContext.current.getString(item!!.description),
                     modifier = Modifier
                         .padding(vertical = 15.dp),
                     contentScale = ContentScale.Crop
@@ -98,7 +108,7 @@ fun DetailsColumn (item: Item?) {
                     .verticalScroll(rememberScrollState())
             ) {
                 Text(
-                    text = LocalContext.current.getString(item.description),
+                    text = LocalContext.current.getString(item!!.description),
                     fontSize = 18.sp,
                     modifier = Modifier.padding(start = 15.dp, end = 15.dp)
                 )
