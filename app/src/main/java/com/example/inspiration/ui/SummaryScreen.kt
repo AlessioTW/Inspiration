@@ -37,9 +37,11 @@ import com.example.inspiration.data.InspirationUiState
 import com.example.inspiration.model.Item
 import org.burnoutcrew.reorderable.*
 import android.content.Intent
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.material3.ButtonDefaults
 
 @Composable
 fun SummaryScreen(
@@ -62,22 +64,35 @@ fun SummaryScreen(
                     inspirationUiState.experienceList
         )
         Map()
-        //ShareButton("ciao")
 
-        NavigationButtonsRow(
-            text1 = "Avvia percorso",
-            text2 = "Condividi",
-            onNextButtonClicked = {/*
-                val sendIntent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, "booooh")
-                    type = "text/plain"
-                }
-                val shareIntent = Intent.createChooser(sendIntent, null)
-                LocalContext.current.startActivity(shareIntent)*/
-            },
-            onPreviousButtonClicked = {},
-        )
+        Row (
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 50.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ){
+            val context = LocalContext.current
+            ButtonButton(
+                text = "Condividi",
+                onclick = {
+                    val sendIntent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, "maps.google.milano....")
+                        type = "text/plain"
+                    }
+                    val shareIntent = Intent.createChooser(sendIntent, null)
+                    context.startActivity(shareIntent)
+                },
+                backgroundColor = Color.White,
+                mainColor = Color.Black
+            )
+            ButtonButton(
+                text = "Avvia Percorso",
+                onclick = {},
+                backgroundColor = Color.Black,
+                mainColor = Color.White
+            )
+        }
 
         NavigationButtonsRow(
             text1 = "Indietro",
@@ -87,22 +102,7 @@ fun SummaryScreen(
         )
     }
 }
-@Composable
-fun ShareButton(textToShare: String) {
-    val context = LocalContext.current
 
-    Button(onClick = {
-        val sendIntent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, textToShare)
-            type = "text/plain"
-        }
-        val shareIntent = Intent.createChooser(sendIntent, null)
-        context.startActivity(shareIntent)
-    }) {
-        Text(text = "Condividi")
-    }
-}
 @Composable
 fun Map() {
     Image (
@@ -183,5 +183,31 @@ fun Elem (elem: Item) {
             text = LocalContext.current.getString(elem.titolo),
             modifier = Modifier.padding(10.dp)
         )
+    }
+}
+
+@Composable
+fun ButtonButton(
+    text: String,
+    backgroundColor: Color,
+    mainColor: Color,
+    onclick: () -> Unit,
+) {
+    Box(modifier = Modifier.padding(top = 20.dp)) {
+        Button(
+            onClick = onclick,
+            modifier = Modifier
+                .size(width = 150.dp, height = 50.dp)
+                .background(backgroundColor),
+            shape = RectangleShape,
+            border = BorderStroke(1.dp, mainColor),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black)
+        ) {
+            Text(
+                text = text,
+                fontSize = 15.sp,
+                color = mainColor,
+            )
+        }
     }
 }
