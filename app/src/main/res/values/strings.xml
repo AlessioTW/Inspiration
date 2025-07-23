@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Inspiration</string>
 
+    <!-- Trento -->
+
     <string name="place1">Torre Aquila</string>
     <string name="place2">Palazzo Albere</string>
     <string name="place3">Palazzo Pretorio</string>
@@ -25,7 +27,6 @@
     <string name="desc_place10">Il Castello del Buonconsiglio è la più grande e importante fortezza del Trentino-Alto Adige. Risalente al XIII secolo, ha svolto funzioni difensive e residenziali. Oggi ospita musei, gallerie d’arte e splendidi affreschi, tra cui il famoso “Ciclo dei Mesi” della Torre Aquila. Il castello domina la città, offrendo viste panoramiche uniche e un viaggio nella storia medievale e rinascimentale di Trento.</string>
     <string name="desc_place11">Piazza Duomo è il cuore pulsante di Trento, dominata dalla Cattedrale di San Vigilio. La piazza è circondata da edifici storici, caffè e negozi, ed è luogo di importanti eventi e celebrazioni. Qui si respira un’atmosfera autentica, con il suo mix di arte, religione e vita sociale, ed è un punto di partenza perfetto per esplorare il centro storico e immergersi nella cultura trentina.</string>
 
-
     <string name="events1">Concerto jazz</string>
     <string name="events2">All you can eat sushi</string>
     <string name="events3">Serata alle Albere</string>
@@ -38,7 +39,6 @@
     <string name="events10">Apericena</string>
     <string name="events11">Colazione gourmet</string>
 
-    <!-- Eventi -->
     <string name="desc_events1">Il Concerto jazz a Trento è un appuntamento musicale imperdibile che porta atmosfere rilassanti e coinvolgenti nel cuore della città. Artisti locali e internazionali si esibiscono dal vivo, offrendo performance di grande qualità in ambienti accoglienti, come locali storici o spazi all’aperto. Questa manifestazione valorizza la scena musicale jazz trentina, creando momenti di socializzazione e cultura sonora per tutti gli amanti della musica.</string>
     <string name="desc_events2">L’evento “All you can eat sushi” è una festa gastronomica che permette di gustare sushi fresco e di qualità in modalità buffet illimitato. Locali di Trento organizzano questa serata speciale per chi ama la cucina giapponese, offrendo una varietà di piatti tradizionali e innovativi. È un’occasione perfetta per assaporare sapori nuovi, passare una serata in compagnia e scoprire la scena culinaria internazionale della città.</string>
     <string name="desc_events3">La “Serata alle Albere” è un evento culturale e sociale che si svolge nel suggestivo contesto di Palazzo Albere e del suo parco. Offre musica dal vivo, mostre, cibo e bevande in un’atmosfera festosa e accogliente. Questa serata celebra l’arte, la convivialità e il patrimonio locale, creando un momento di incontro tra cittadini, artisti e visitatori, ideale per scoprire e vivere Trento sotto una luce nuova.</string>
@@ -51,7 +51,18 @@
     <string name="desc_events10">L’“Apericena” è un evento conviviale molto popolare a Trento, che combina l’aperitivo con una cena leggera a buffet. Locali e bar organizzano queste serate per offrire ai partecipanti un modo rilassante di socializzare, assaporando una varietà di piatti e bevande in un ambiente informale. L’apericena rappresenta un momento perfetto per incontri tra amici e nuove conoscenze, all’insegna del buon cibo e dell’atmosfera piacevole.</string>
     <string name="desc_events11">La “Colazione gourmet” è un evento mattutino dedicato agli amanti del cibo di qualità, che propone prodotti artigianali, dolci e salati preparati con ingredienti selezionati. Locali specializzati a Trento organizzano questa esperienza per iniziare la giornata con gusto, offrendo un’atmosfera accogliente e raffinata. La colazione gourmet valorizza la tradizione culinaria locale e le tendenze gastronomiche contemporanee, per un risveglio delizioso.</string>
 
-    <!-- Esperienze -->
+    <string name="experience1">Orrido Ponte Alto</string>
+    <string name="experience2">Gita a cavallo</string>
+    <string name="experience3">Trekking con guida</string>
+    <string name="experience4">Guida ai musei</string>
+    <string name="experience5">Rafting</string>
+    <string name="experience6">Enogastronomia</string>
+    <string name="experience7">Esperienza culinaria</string>
+    <string name="experience8">Degustazione vini</string>
+    <string name="experience9">Degustazione grappe</string>
+    <string name="experience10">Corso di cucina</string>
+    <string name="experience11">Bike tour</string>
+
     <string name="desc_experience1">L’Orrido di Ponte Alto è una meraviglia naturale vicino a Trento, caratterizzata da gole profonde scavate dal fiume e da passerelle sospese che permettono di ammirare il paesaggio da punti panoramici unici. Questa esperienza offre la possibilità di immergersi nella natura alpina, osservare la flora e la fauna locali e godere di passeggiate suggestive, ideali per chi ama l’avventura e il contatto diretto con l’ambiente.</string>
     <string name="desc_experience2">La gita a cavallo nei dintorni di Trento è un’attività rilassante e avventurosa, adatta a tutti i livelli di esperienza. Attraverso percorsi immersi nella natura alpina, si possono scoprire panorami spettacolari e angoli nascosti del territorio. L’esperienza permette di entrare in sintonia con gli animali e con l’ambiente, offrendo momenti di tranquillità e divertimento, ideale per famiglie, coppie e gruppi di amici.</string>
     <string name="desc_experience3">Il trekking con guida a Trento e nei suoi dintorni è un’opportunità per esplorare sentieri naturalistici accompagnati da esperti locali. Le escursioni variano per difficoltà e durata, permettendo di scoprire la biodiversità alpina, i paesaggi mozzafiato e la storia del territorio. La guida fornisce spiegazioni approfondite sulla flora, fauna e cultura locale, arricchendo l’esperienza e garantendo sicurezza durante il percorso.</string>
@@ -64,17 +75,76 @@
     <string name="desc_experience10">Il corso di cucina a Trento è un’occasione per imparare a preparare piatti tradizionali e innovativi sotto la guida di chef esperti. Questa esperienza pratica coinvolge tutti i partecipanti nella scelta degli ingredienti, nelle tecniche di preparazione e nella presentazione dei piatti. È ideale per appassionati di gastronomia che desiderano approfondire le proprie competenze culinarie, vivendo momenti di convivialità e creatività in un ambiente stimolante.</string>
     <string name="desc_experience11">Il bike tour a Trento è un modo attivo e sostenibile per esplorare la città e i dintorni su due ruote. Percorsi segnalati attraversano zone urbane, parchi e aree naturali, offrendo viste panoramiche e un contatto diretto con l’ambiente. Adatto a tutti i livelli di esperienza, il tour può essere guidato o libero, e rappresenta un’ottima occasione per scoprire Trento in modo originale e divertente.</string>
 
+    <!-- Verona -->
 
-    <string name="experience1">Orrido Ponte Alto</string>
-    <string name="experience2">Gita a cavallo</string>
-    <string name="experience3">Trekking con guida</string>
-    <string name="experience4">Guida ai musei</string>
-    <string name="experience5">Rafting</string>
-    <string name="experience6">Enogastronomia</string>
-    <string name="experience7">Esperienza culinaria</string>
-    <string name="experience8">Degustazione vini</string>
-    <string name="experience9">Degustazione grappe</string>
-    <string name="experience10">Corso di cucina</string>
-    <string name="experience11">Bike tour</string>
+    <string name="Veronaplace1">Arena di Verona</string>
+    <string name="Veronaplace2">Piazza delle Erbe</string>
+    <string name="Veronaplace3">Casa di Giulietta</string>
+    <string name="Veronaplace4">Torre dei Lamberti</string>
+    <string name="Veronaplace5">Castelvecchio</string>
+    <string name="Veronaplace6">Piazza dei Signori</string>
+    <string name="Veronaplace7">Casa di Romeo</string>
+    <string name="Veronaplace8">Ponte Scaligero</string>
+    <string name="Veronaplace9">Duomo di Verona</string>
+    <string name="Veronaplace10">Basilica di San Zeno</string>
+    <string name="Veronaplace11">Giardino Giusti</string>
+
+    <string name="desc_Veronaplace1">L’Arena di Verona è un anfiteatro romano del I secolo d.C., tra i meglio conservati al mondo. Ogni estate ospita il celebre Festival lirico areniano, ma durante l’anno accoglie anche concerti e visite guidate che ne esaltano la storia e l’acustica eccezionale.</string>
+    <string name="desc_Veronaplace2">Ex foro romano, oggi è il cuore vibrante della città: incorniciata da palazzi medievali e Rinascimentali, bancarelle e caffè. Al centro svetta la fontana "Madonna Verona", testimonianza storica antica.</string>
+    <string name="desc_Veronaplace3">Casa torre medievale in via Cappello (XIII secolo). Visitata per il famoso balcone legato alla tragedia shakespeariana, accoglie un museo interno e la statua di Giulietta nel cortile, diventata simbolo di fortuna amorosa.</string>
+    <string name="desc_Veronaplace4">Alta 84 m e costruita nel XII secolo, questa torre offre una vista panoramica su Verona e le sue piazze. È possibile salire fino alla cima per ammirare la città dall’alto.</string>
+    <string name="desc_Veronaplace5">Fortezza medievale con ponte scaligero, oggi sede di museo con collezioni che vanno dal periodo medievale al Rinascimento. Uno dei principali simboli storici della città.</string>
+    <string name="desc_Veronaplace6">Conosciuta anche come Piazza Dante, è circondata da palazzi storici della famiglia Scaligeri, con la Torre dei Lamberti e il Palazzo della Ragione, ricca di atmosfera medievale.</string>
+    <string name="desc_Veronaplace7">Situata in via Arche Scaligere, è una delle abitazioni medievali meglio conservate, legata alla leggenda romantica di Romeo Montecchi e arricchita da cortili e dettagli architettonici romanici e gotici.</string>
+    <string name="desc_Veronaplace8">Storici ponti sul fiume Adige: il Ponte Scaligero medievale offre merli e vista panoramica; il Ponte Pietra è un antico ponte romano in pietra, suggestivo, perfetto per passeggiate e fotografie.</string>
+    <string name="desc_Veronaplace9">Cattedrale medievale con annessi chiostro, battistero e palazzo vescovile. Rappresenta un capolavoro dell’architettura religiosa veronese.</string>
+    <string name="desc_Veronaplace10">Grande chiesa romanica famosa per il celebre portale scolpito, il ciclo degli affreschi e lo splendore dell’interno, ispiratrice di atmosfere medievali autentiche.</string>
+    <string name="desc_Veronaplace11">Splendido giardino storico rinascimentale famoso per la vista panoramica sulla città, i labirinti verdi e l’atmosfera romantica, ideale per passeggiate rilassanti.</string>
+
+    <string name="Veronaevents1">Festival Areniano</string>
+    <string name="Veronaevents2">Vinitaly</string>
+    <string name="Veronaevents3">Straverona</string>
+    <string name="Veronaevents4">Tocatì</string>
+    <string name="Veronaevents5">Carnevale</string>
+    <string name="Veronaevents6">Le Piazze dei Sapori</string>
+    <string name="Veronaevents7">Verona Tessile</string>
+    <string name="Veronaevents8">Estate Teatrale Veronese</string>
+    <string name="Veronaevents9">Fieracavalli</string>
+    <string name="Veronaevents10">Mostre a Castelvecchio</string>
+    <string name="Veronaevents11">Tour delle Mura</string>
+
+    <string name="desc_Veronaevents1">Festival lirico estivo all’Arena di Verona, ininterrottamente dal 1913, con opere celebri e grandi produzioni liriche che richiamano appassionati da tutto il mondo.</string>
+    <string name="desc_Veronaevents2">Uno dei più importanti saloni internazionali del vino, si tiene ogni primavera a VeronaFiere e attrae produttori e appassionati globali.</string>
+    <string name="desc_Veronaevents3">Gara podistica cittadina, aperta a tutti, che attraversa il cuore storico di Verona, promuovendo sport e turismo locale.</string>
+    <string name="desc_Veronaevents4">Festival internazionale del gioco tradizionale, che trasforma le piazze di Verona in spazi dedicati a giochi per tutte le età.</string>
+    <string name="desc_Veronaevents5">Rievocazione storica del Carnevale veronese, tra i più antichi d’Europa, con sfilate, maschere e tradizioni popolari.</string>
+    <string name="desc_Veronaevents6">Evento gastronomico itinerante in centro città, con degustazioni di prodotti tipici regionali e stand enogastronomici.</string>
+    <string name="desc_Veronaevents7">Biennale di patchwork e quilting, esposizione di opere tessili artistiche e incontri tematici.</string>
+    <string name="desc_Veronaevents8">Festival estivo di teatro, musica e danza, spesso con spettacoli ispirati a Shakespeare, allestiti in location storiche.</string>
+    <string name="desc_Veronaevents9">Importante salone dedicato al settore equestre, con concorsi, spettacoli e esposizioni nel polo fieristico.</string>
+    <string name="desc_Veronaevents10">Eventi espositivi periodici presso il museo di Castelvecchio, spesso su temi storici o artistici.</string>
+    <string name="desc_Veronaevents11">Passeggiate guidate al tramonto sulle antiche mura scaligere, con vista panoramica e narrazione storica.</string>
+
+    <string name="Veronaexperience1">Tour in bici</string>
+    <string name="Veronaexperience2">Degustazione vini</string>
+    <string name="Veronaexperience3">Corso di cucina</string>
+    <string name="Veronaexperience4">Tour enogastronomico</string>
+    <string name="Veronaexperience5">Caccia al tesoro</string>
+    <string name="Veronaexperience6">Visita musei</string>
+    <string name="Veronaexperience7">Giro in barca</string>
+    <string name="Veronaexperience8">Passeggiata Giusti</string>
+    <string name="Veronaexperience9">Tour shakespeariano</string>
+    <string name="Veronaexperience10">Tour mura al tramonto</string>
+
+    <string name="desc_Veronaexperience1">Giro guidato in bicicletta tra le strade, i giardini e le colline vicino a Verona, per scoprire la città con un approccio attivo e sostenibile.</string>
+    <string name="desc_Veronaexperience2">Visita a cantine e degustazione di Amarone, Ripasso e altre etichette locali sulle colline veronesi.</string>
+    <string name="desc_Veronaexperience3">Laboratorio pratico con chef locali per imparare a preparare piatti tipici veneti come risotto, bigoli e pasticceria.</string>
+    <string name="desc_Veronaexperience4">Passeggiata guidata con tappe in osterie e locali storici con degustazioni di prodotti tipici locali.</string>
+    <string name="desc_Veronaexperience5">Caccia al tesoro per famiglie o gruppi, che esplora i luoghi simbolo di Verona con enigmi e aneddoti.</string>
+    <string name="desc_Veronaexperience6">Tour museale incluso Museo di Castelvecchio, Museo di Storia Naturale, Arche Scaligere e Museo Archeologico e Teatro Romano.</string>
+    <string name="desc_Veronaexperience7">Piccola escursione in battello sul fiume Adige, per ammirare la città da una prospettiva diversa.</string>
+    <string name="desc_Veronaexperience8">Camminata tra labirinti, statue e scorci panoramici nel giardino rinascimentale.</string>
+    <string name="desc_Veronaexperience9">Tour guidato che segue le tracce di Romeo e Giulietta: Casa di Giulietta, Arche Scaligere, Casa di Romeo, Tomba di Giulietta.</string>
+    <string name="desc_Veronaexperience10">Passeggiata serale guidata lungo le mura, con vista sulla città e racconti storici.</string>
 
 </resources>

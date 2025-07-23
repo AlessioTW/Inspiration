@@ -31,8 +31,8 @@ fun ExperiencesScreen(
         Logo2()
         SpazioPubblicitarioBox2()
         MainColumn(
-            città = inspirationUiState.città,
-            listItem = Datasource().loadExperiences(),
+            città = inspirationUiState.citta,
+            listItem = Datasource().loadExperiences(inspirationUiState.citta),
             infoClicked = infoClicked,
             selectedItems = inspirationUiState.experienceList,
             onItemCheckedChange,

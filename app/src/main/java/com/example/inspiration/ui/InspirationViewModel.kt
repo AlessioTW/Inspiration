@@ -15,7 +15,7 @@ class InspirationViewModel: ViewModel() {
     fun setCitta(citta: String) {
         _uiState.update { currentState ->
             currentState.copy (
-                città = citta
+                citta = citta
             )
         }
     }

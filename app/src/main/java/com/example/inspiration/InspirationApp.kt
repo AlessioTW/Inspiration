@@ -54,13 +54,13 @@ import com.example.inspiration.ui.PlacesScreen
 import com.example.inspiration.ui.StartScreen
 import com.example.inspiration.ui.SummaryScreen
 
-enum class InspirationScreen () {
-    Start(),
-    Places(),
-    Events(),
-    Experiences(),
-    Details(),
-    Summary()
+enum class InspirationScreen {
+    Start,
+    Places,
+    Events,
+    Experiences,
+    Details,
+    Summary
 }
 
 @Composable
@@ -78,7 +78,7 @@ fun InspirationApp (
         composable (route = InspirationScreen.Start.name) {
             StartScreen(
                 onButtonClicked = {
-                    viewModel.setCitta(it.toString())
+                    viewModel.setCitta(it)
                     navController.navigate(InspirationScreen.Places.name)
                 }
             )

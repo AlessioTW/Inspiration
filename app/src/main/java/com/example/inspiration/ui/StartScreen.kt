@@ -72,7 +72,7 @@ fun StartScreen(
 fun DropdownMenuCittà(onButtonClicked: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
     var buttonWidth by remember { mutableIntStateOf(0) }
-    val menuItemData = listOf("Trento")
+    val menuItemData = listOf("Trento", "Verona")
 
     Box(
         modifier = Modifier

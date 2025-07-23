@@ -31,8 +31,8 @@ fun PlacesScreen(
             Logo2()
             SpazioPubblicitarioBox2()
             MainColumn(
-                città = inspirationUiState.città,
-                listItem = Datasource().loadPlaces(),
+                città = inspirationUiState.citta,
+                listItem = Datasource().loadPlaces(inspirationUiState.citta),
                 infoClicked = infoClicked,
                 selectedItems = inspirationUiState.placeList,
                 onItemCheckedChange,

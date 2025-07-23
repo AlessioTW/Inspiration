@@ -36,8 +36,8 @@ fun EventsScreen(
         Logo2()
         SpazioPubblicitarioBox2()
         MainColumn(
-            città = inspirationUiState.città,
-            listItem = Datasource().loadEvents(),
+            città = inspirationUiState.citta,
+            listItem = Datasource().loadEvents(inspirationUiState.citta),
             infoClicked = infoClicked,
             selectedItems = inspirationUiState.eventList,
             onItemCheckedChange,
